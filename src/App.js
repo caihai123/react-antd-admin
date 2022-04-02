@@ -1,11 +1,15 @@
-import { Button } from "antd";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./layout";
+import Login from "./pages/login";
 
-function App() {
+export default function App() {
   return (
-    <div className="web">
-      <Button type="primary" loading="{false}">按钮</Button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/*" element={<Layout />}></Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<div>404</div>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

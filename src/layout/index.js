@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import style from "./style.module.css";
 import routes from "../router/index"; // 前端路由表
 import axios from "../utils/axios";
-import MenuItem from './menu-item.js';
+import MenuItem from "./menu-item.js";
 
 const { Header, Sider, Content } = Layout;
 
@@ -52,6 +52,7 @@ export default function LayoutViwe() {
                   element={<item.component />}
                 />
               ))}
+              <Route path="/*" element={<div>404</div>}></Route>
             </Routes>
           </Suspense>
         </Content>

@@ -8,7 +8,6 @@ export default function App() {
       <Routes>
         <Route path="/*" element={<Layout />}></Route>
         <Route path="/login" element={<Login />} />
-        <Route path="*" element={<div>404</div>} />
       </Routes>
     </BrowserRouter>
   );

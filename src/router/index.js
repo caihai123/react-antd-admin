@@ -1,26 +1,21 @@
-// import { lazy } from "react";
-
-import Home from "../pages/home";
-import Menu from "../pages/permis/menu";
-import Role from "../pages/permis/role";
-import User from "../pages/permis/user";
+import { lazy } from "react";
 
 const routes = [
   {
-    path: "/home",
-    component: Home,
+    path: "/index",
+    component: lazy(() => import("../pages/home")),
   },
   {
     path: "/permis/menu",
-    component: Menu,
+    component: lazy(() => import("../pages/permis/menu")),
   },
   {
     path: "/permis/role",
-    component: Role,
+    component: lazy(() => import("../pages/permis/role")),
   },
   {
     path: "/permis/user",
-    component: User,
+    component: lazy(() => import("../pages/permis/user")),
   },
 ];
 

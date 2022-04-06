@@ -1,13 +1,22 @@
 import React, { useState, Suspense, useEffect } from "react";
 import { Layout, Menu } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import style from "./style.module.css";
 import routes from "../router/index"; // 前端路由表
 import axios from "../utils/axios";
 import MenuItem from "./menu-item.js";
 
 const { Header, Sider, Content } = Layout;
+
+// 模拟路由重定向功能
+function Redirect({ to }) {
+  let navigate = useNavigate();
+  useEffect(() => {
+    navigate(to);
+  });
+  return null;
+}
 
 export default function LayoutViwe() {
   const [collapsed, setCollapsed] = useState(false);
@@ -52,6 +61,7 @@ export default function LayoutViwe() {
                   element={<item.component />}
                 />
               ))}
+              <Route path="/" element={<Redirect to="/index" />} />
               <Route path="/*" element={<div>404</div>}></Route>
             </Routes>
           </Suspense>

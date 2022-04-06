@@ -11,7 +11,7 @@ export default function Page() {
   useEffect(() => {
     // 获取菜单列表
     axios
-      .get("/mock-api/vue-clean-admin/get-menu-list.json")
+      .get("/mock-api/react-antd-admin/get-menu-list.json")
       .then((response) => {
         const { data } = response.data;
         setTableData(data || []);

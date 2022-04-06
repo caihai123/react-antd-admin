@@ -1,34 +1,20 @@
 import React, { useState, Suspense, useEffect } from "react";
 import { Layout, Menu } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import style from "./style.module.css";
 import routes from "../router/index"; // 路由表
 import axios from "../utils/axios";
+import MenuItem from './menu-item.js';
 
 const { Header, Sider, Content } = Layout;
-
-function MenuItem(item) {
-  if (item.type === "1") {
-    return (
-      <Menu.Item key={item.id} icon={<MenuUnfoldOutlined />} title={item.title}>
-        {/* <Link to={item.path}>{item.title}</Link> */}
-      </Menu.Item>
-    );
-  } else {
-    return (
-      <Menu.SubMenu title={item.title} key={item.id} icon={<MenuUnfoldOutlined />}>
-        {(item.children || []).map((i) => MenuItem(i))}
-      </Menu.SubMenu>
-    );
-  }
-}
 
 export default function LayoutViwe() {
   const [collapsed, setCollapsed] = useState(false);
   const [menuList, setMenuList] = useState([]);
 
   useEffect(() => {
+    // 获取权限路由列表
     axios
       .get("/mock-api/vue-clean-admin/get-menu-list.json")
       .then((response) => {
@@ -57,7 +43,7 @@ export default function LayoutViwe() {
           )}
         </Header>
         <Content className={style.content}>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div>拼命加载中</div>}>
             <Routes>
               {routes.map((item) => (
                 <Route

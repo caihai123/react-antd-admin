@@ -7,6 +7,7 @@ import routes from "../router/index"; // 前端路由表
 import axios from "../utils/axios";
 import MenuItem from "./menu-item.js";
 import Redirect from "./redirect";
+import Breadcrumb from "./Breadcrumb.js";
 
 const { Header, Sider, Content } = Layout;
 
@@ -42,13 +43,16 @@ export default function LayoutViwe() {
 
       <Layout style={{ background: "#f0f2f5" }}>
         <Header className={style.header} style={{ padding: 0 }}>
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: style.trigger,
-              onClick: () => setCollapsed(!collapsed),
-            }
-          )}
+          <div>
+            {React.createElement(
+              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+              {
+                className: style.trigger,
+                onClick: () => setCollapsed(!collapsed),
+              }
+            )}
+            <Breadcrumb menuList={menuList}/>
+          </div>
         </Header>
         <Content className={style.content}>
           <Suspense fallback={<div>拼命加载中</div>}>

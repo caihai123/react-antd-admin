@@ -68,7 +68,7 @@ export default function LayoutViwe() {
           </div>
         </Header>
         <Content className={style.content}>
-          <Suspense fallback={<div>拼命加载中</div>}>
+          <Suspense>
             <Routes>
               {routes.map((item) => (
                 <Route

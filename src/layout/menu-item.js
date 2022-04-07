@@ -11,7 +11,7 @@ function antdIcon(icon) {
 export default function MenuItem(item) {
   if (item.type === "1") {
     return (
-      <Menu.Item key={item.id} icon={antdIcon(item.icon)}>
+      <Menu.Item key={item.path} icon={antdIcon(item.icon)}>
         <Link to={item.path}>{item.title}</Link>
       </Menu.Item>
     );

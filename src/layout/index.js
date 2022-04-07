@@ -1,27 +1,19 @@
 import React, { useState, Suspense, useEffect } from "react";
 import { Layout, Menu } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import style from "./style.module.css";
 import routes from "../router/index"; // 前端路由表
 import axios from "../utils/axios";
 import MenuItem from "./menu-item.js";
+import Redirect from "./redirect";
 
 const { Header, Sider, Content } = Layout;
 
-// 模拟路由重定向功能
-function Redirect({ to }) {
-  let navigate = useNavigate();
-  useEffect(() => {
-    navigate(to);
-  });
-  return null;
-}
-
 export default function LayoutViwe() {
-  const [collapsed, setCollapsed] = useState(false);
-  const [menuList, setMenuList] = useState([]);
+  const [collapsed, setCollapsed] = useState(false); // 控制侧边栏展开收起
 
+  const [menuList, setMenuList] = useState([]); // 后端返回的路由表
   useEffect(() => {
     // 获取权限路由列表
     axios
@@ -32,11 +24,18 @@ export default function LayoutViwe() {
       });
   }, []);
 
+  // 监听路由变化，设置菜单选中状态
+  let location = useLocation();
+  const [activePathname, setActivePathname] = useState(location.pathname);
+  useEffect(() => {
+    setActivePathname(location.pathname);
+  }, [location]);
+
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className={style.logo} />
-        <Menu theme="dark" mode="inline">
+        <Menu theme="dark" mode="inline" selectedKeys={[activePathname]}>
           {menuList.map((item) => MenuItem(item))}
         </Menu>
       </Sider>

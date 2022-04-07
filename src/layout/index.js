@@ -1,7 +1,7 @@
 import React, { useState, Suspense, useEffect } from "react";
 import { Layout, Menu } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Link } from "react-router-dom";
 import style from "./style.module.css";
 import routes from "../router/index"; // 前端路由表
 import axios from "../utils/axios";
@@ -12,6 +12,7 @@ import Error404 from "../pages/404.js";
 import Error401 from "../pages/401.js";
 import { flattenDeep } from "../utils/index.js";
 import WaterMark from "../components/WaterMark.js";
+import Logo from '../assets/logo.svg';
 
 const { Header, Sider, Content } = Layout;
 
@@ -48,8 +49,19 @@ export default function LayoutViwe() {
 
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className={style.logo} />
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        width={230}
+        collapsedWidth={64}
+      >
+        <div className={style.logo}>
+          <Link to="/">
+            <img src={Logo} alt="logo"/>
+            {!collapsed ? <h1>React-Antd-Admin</h1> : ""}
+          </Link>
+        </div>
         <Menu theme="dark" mode="inline" selectedKeys={[activePathname]}>
           {initialMenuList.map((item) => MenuItem(item))}
         </Menu>

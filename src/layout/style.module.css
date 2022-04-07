@@ -30,7 +30,6 @@
 
 .content {
   height: calc(100vh - 104px);
-  margin: 20px;
   padding: 24px;
   background-color: #fff;
 }

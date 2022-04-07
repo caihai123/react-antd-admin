@@ -11,6 +11,7 @@ import Breadcrumb from "./Breadcrumb.js";
 import Error404 from "../pages/404.js";
 import Error401 from "../pages/401.js";
 import { flattenDeep } from "../utils/index.js";
+import WaterMark from "../components/WaterMark.js";
 
 const { Header, Sider, Content } = Layout;
 
@@ -67,23 +68,34 @@ export default function LayoutViwe() {
             <Breadcrumb menuList={initialMenuList} />
           </div>
         </Header>
-        <Content className={style.content}>
-          <Suspense>
-            <Routes>
-              {routes.map((item) => (
-                <Route
-                  path={item.path}
-                  key={item.path}
-                  element={
-                    isInMenuList(item.path) ? <item.component /> : <Error401 />
-                  }
-                />
-              ))}
-              <Route path="/" element={<Redirect to="/index" />} />
-              <Route path="/*" element={<Error404 />}></Route>
-            </Routes>
-          </Suspense>
-        </Content>
+        <WaterMark
+          height={36}
+          width={115}
+          style={{ margin: 20 }}
+          image="https://gw.alipayobjects.com/zos/bmw-prod/59a18171-ae17-4fc5-93a0-2645f64a3aca.svg"
+        >
+          <Content className={style.content}>
+            <Suspense>
+              <Routes>
+                {routes.map((item) => (
+                  <Route
+                    path={item.path}
+                    key={item.path}
+                    element={
+                      isInMenuList(item.path) ? (
+                        <item.component />
+                      ) : (
+                        <Error401 />
+                      )
+                    }
+                  />
+                ))}
+                <Route path="/" element={<Redirect to="/index" />} />
+                <Route path="/*" element={<Error404 />}></Route>
+              </Routes>
+            </Suspense>
+          </Content>
+        </WaterMark>
       </Layout>
     </Layout>
   );

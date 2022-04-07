@@ -8,22 +8,35 @@ import axios from "../utils/axios";
 import MenuItem from "./menu-item.js";
 import Redirect from "./redirect";
 import Breadcrumb from "./Breadcrumb.js";
+import Error404 from "../pages/404.js";
+import Error401 from "../pages/401.js";
+import { flattenDeep } from "../utils/index.js";
 
 const { Header, Sider, Content } = Layout;
 
 export default function LayoutViwe() {
   const [collapsed, setCollapsed] = useState(false); // 控制侧边栏展开收起
 
-  const [menuList, setMenuList] = useState([]); // 后端返回的路由表
+  const [initialMenuList, setInitialMenuList] = useState([]); // 后端返回的路由表
   useEffect(() => {
     // 获取权限路由列表
     axios
       .get("/mock-api/react-antd-admin/get-menu-list.json")
       .then((response) => {
         const { data } = response.data;
-        setMenuList(data || []);
+        setInitialMenuList(data || []);
       });
   }, []);
+
+  const [menuList, setMenuList] = useState([]); // 由initialMenuList变化来的一维菜单列表
+  useEffect(() => {
+    setMenuList(flattenDeep(initialMenuList));
+  }, [initialMenuList]);
+
+  // 判断当前路由是否在菜单列表中 如果在返回true 否则返回false
+  const isInMenuList = (pathname) => {
+    return menuList.find((item) => item.path === pathname);
+  };
 
   // 监听路由变化，设置菜单选中状态
   let location = useLocation();
@@ -37,7 +50,7 @@ export default function LayoutViwe() {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className={style.logo} />
         <Menu theme="dark" mode="inline" selectedKeys={[activePathname]}>
-          {menuList.map((item) => MenuItem(item))}
+          {initialMenuList.map((item) => MenuItem(item))}
         </Menu>
       </Sider>
 
@@ -51,7 +64,7 @@ export default function LayoutViwe() {
                 onClick: () => setCollapsed(!collapsed),
               }
             )}
-            <Breadcrumb menuList={menuList}/>
+            <Breadcrumb menuList={initialMenuList} />
           </div>
         </Header>
         <Content className={style.content}>
@@ -61,11 +74,13 @@ export default function LayoutViwe() {
                 <Route
                   path={item.path}
                   key={item.path}
-                  element={<item.component />}
+                  element={
+                    isInMenuList(item.path) ? <item.component /> : <Error401 />
+                  }
                 />
               ))}
               <Route path="/" element={<Redirect to="/index" />} />
-              <Route path="/*" element={<div>404</div>}></Route>
+              <Route path="/*" element={<Error404 />}></Route>
             </Routes>
           </Suspense>
         </Content>

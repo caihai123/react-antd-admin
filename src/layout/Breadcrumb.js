@@ -33,6 +33,14 @@ export default function Component({ menuList }) {
       (item) => item.path && item.path === path
     );
     let levelList = treeTOList(list);
+    if (!levelList[0]) {
+      levelList = [{ title: "未知路由" }];
+    }
+    
+    const [first] = levelList;
+    if (first.path !== "/index") {
+      levelList.unshift({ title: "首页", path: "/index" });
+    }
     setLevelList(levelList);
   }, [menuList, location]);
 

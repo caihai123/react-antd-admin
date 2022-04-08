@@ -12,7 +12,7 @@ import Error404 from "../pages/404.js";
 import Error401 from "../pages/401.js";
 import { flattenDeep } from "../utils/index.js";
 import WaterMark from "../components/WaterMark.js";
-import Logo from '../assets/logo.svg';
+import Logo from "../assets/logo.svg";
 
 const { Header, Sider, Content } = Layout;
 
@@ -49,66 +49,71 @@ export default function LayoutViwe() {
 
   return (
     <Layout>
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        width={230}
-        collapsedWidth={64}
-      >
+      <Header className={style.header}>
         <div className={style.logo}>
           <Link to="/">
-            <img src={Logo} alt="logo"/>
-            {!collapsed ? <h1>React-Antd-Admin</h1> : ""}
+            <img src={Logo} alt="logo" />
+            <h1>React-Antd-Admin</h1>
           </Link>
         </div>
-        <Menu theme="dark" mode="inline" selectedKeys={[activePathname]}>
-          {initialMenuList.map((item) => MenuItem(item))}
-        </Menu>
-      </Sider>
+      </Header>
 
-      <Layout style={{ background: "#f0f2f5" }}>
-        <Header className={style.header} style={{ padding: 0 }}>
-          <div>
-            {React.createElement(
-              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+      <Content style={{ marginTop: 48 }}>
+        <Layout>
+          <Sider
+            collapsible
+            collapsed={collapsed}
+            theme="light"
+            collapsedWidth={48}
+            trigger={React.createElement(
+              "div",
               {
                 className: style.trigger,
                 onClick: () => setCollapsed(!collapsed),
-              }
+              },
+              collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
             )}
-            <Breadcrumb menuList={initialMenuList} />
-          </div>
-        </Header>
-        <WaterMark
-          height={36}
-          width={115}
-          style={{ margin: 20 }}
-          image="https://gw.alipayobjects.com/zos/bmw-prod/59a18171-ae17-4fc5-93a0-2645f64a3aca.svg"
-        >
+          >
+            <Menu mode="inline" selectedKeys={[activePathname]}>
+              {initialMenuList.map((item) => MenuItem(item))}
+            </Menu>
+          </Sider>
+
           <Content className={style.content}>
-            <Suspense>
-              <Routes>
-                {routes.map((item) => (
-                  <Route
-                    path={item.path}
-                    key={item.path}
-                    element={
-                      isInMenuList(item.path) ? (
-                        <item.component />
-                      ) : (
-                        <Error401 />
-                      )
-                    }
-                  />
-                ))}
-                <Route path="/" element={<Redirect to="/index" />} />
-                <Route path="/*" element={<Error404 />}></Route>
-              </Routes>
-            </Suspense>
+            <div style={{ height: 48, display: "flex", alignItems: "center" }}>
+              <Breadcrumb menuList={initialMenuList} />
+            </div>
+
+            <WaterMark
+              height={36}
+              width={115}
+              image="https://gw.alipayobjects.com/zos/bmw-prod/59a18171-ae17-4fc5-93a0-2645f64a3aca.svg"
+            >
+              <Content className={style.main}>
+                <Suspense>
+                  <Routes>
+                    {routes.map((item) => (
+                      <Route
+                        path={item.path}
+                        key={item.path}
+                        element={
+                          isInMenuList(item.path) ? (
+                            <item.component />
+                          ) : (
+                            <Error401 />
+                          )
+                        }
+                      />
+                    ))}
+                    <Route path="/" element={<Redirect to="/index" />} />
+                    <Route path="/*" element={<Error404 />}></Route>
+                  </Routes>
+                </Suspense>
+              </Content>
+            </WaterMark>
           </Content>
-        </WaterMark>
-      </Layout>
+        </Layout>
+      </Content>
     </Layout>
   );
 }

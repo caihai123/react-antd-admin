@@ -11,7 +11,6 @@ import Breadcrumb from "./Breadcrumb.js";
 import Error404 from "../pages/404.js";
 import Error401 from "../pages/401.js";
 import { flattenDeep } from "../utils/index.js";
-import WaterMark from "../components/WaterMark.js";
 import Logo from "../assets/logo.svg";
 
 const { Header, Sider, Content } = Layout;
@@ -48,7 +47,7 @@ export default function LayoutViwe() {
   }, [location]);
 
   return (
-    <Layout>
+    <Layout style={{ minHeight: "100%" }}>
       <Header className={style.header}>
         <div className={style.logo}>
           <Link to="/">
@@ -58,62 +57,58 @@ export default function LayoutViwe() {
         </div>
       </Header>
 
-      <Content style={{ marginTop: 48 }}>
-        <Layout>
-          <Sider
-            collapsible
-            collapsed={collapsed}
-            theme="light"
-            collapsedWidth={48}
-            trigger={React.createElement(
-              "div",
-              {
-                className: style.trigger,
-                onClick: () => setCollapsed(!collapsed),
-              },
-              collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
-            )}
-          >
-            <Menu mode="inline" selectedKeys={[activePathname]}>
-              {initialMenuList.map((item) => MenuItem(item))}
-            </Menu>
-          </Sider>
+      <Layout style={{ height: "100%" }}>
+        <Sider collapsed={collapsed} collapsedWidth={48} theme="light"></Sider>
 
-          <Content className={style.content}>
-            <div style={{ height: 48, display: "flex", alignItems: "center" }}>
-              <Breadcrumb menuList={initialMenuList} />
-            </div>
+        <Sider
+          collapsible
+          collapsed={collapsed}
+          theme="light"
+          collapsedWidth={48}
+          trigger={React.createElement(
+            "div",
+            {
+              className: style.trigger,
+              onClick: () => setCollapsed(!collapsed),
+            },
+            collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+          )}
+          className={style.sider}
+        >
+          <Menu mode="inline" selectedKeys={[activePathname]} className={style['menu-children']}>
+            {initialMenuList.map((item) => MenuItem(item))}
+          </Menu>
+        </Sider>
 
-            <WaterMark
-              height={36}
-              width={115}
-              image="https://gw.alipayobjects.com/zos/bmw-prod/59a18171-ae17-4fc5-93a0-2645f64a3aca.svg"
-            >
-              <Content className={style.main}>
-                <Suspense>
-                  <Routes>
-                    {routes.map((item) => (
-                      <Route
-                        path={item.path}
-                        key={item.path}
-                        element={
-                          isInMenuList(item.path) ? (
-                            <item.component />
-                          ) : (
-                            <Error401 />
-                          )
-                        }
-                      />
-                    ))}
-                    <Route path="/" element={<Redirect to="/index" />} />
-                    <Route path="/*" element={<Error404 />}></Route>
-                  </Routes>
-                </Suspense>
-              </Content>
-            </WaterMark>
-          </Content>
-        </Layout>
-      </Content>
+        <Content className={style.content}>
+          <div style={{ height: 48, display: "flex", alignItems: "center" }}>
+            <Breadcrumb menuList={initialMenuList} />
+          </div>
+
+          
+          <div className={style.main}>
+            <Suspense>
+              <Routes>
+                {routes.map((item) => (
+                  <Route
+                    path={item.path}
+                    key={item.path}
+                    element={
+                      isInMenuList(item.path) ? (
+                        <item.component />
+                      ) : (
+                        <Error401 />
+                      )
+                    }
+                  />
+                ))}
+                <Route path="/" element={<Redirect to="/index" />} />
+                <Route path="/*" element={<Error404 />}></Route>
+              </Routes>
+            </Suspense>
+          </div>
+        </Content>
+      </Layout>
     </Layout>
   );
 }

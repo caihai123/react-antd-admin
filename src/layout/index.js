@@ -99,7 +99,7 @@ export default function LayoutViwe() {
         </Sider>
 
         <Content className={style.content}>
-          <div style={{ height: 48, display: "flex", alignItems: "center" }}>
+          <div style={{ height: 36, display: "flex", alignItems: "center" }}>
             <Breadcrumb menuList={initialMenuList} />
           </div>
 

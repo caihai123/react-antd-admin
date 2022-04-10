@@ -68,7 +68,7 @@
 }
 
 .content .main {
-  min-height: calc(100% - 48px);
+  min-height: calc(100% - 36px);
   padding: 24px;
   background-color: #fff;
 }

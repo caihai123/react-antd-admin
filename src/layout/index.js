@@ -85,7 +85,7 @@ export default function LayoutViwe() {
             active
             loading={menuLoading}
             paragraph={{
-              rows: 4,
+              rows: 6,
             }}
             title={false}
             style={{ padding:20 }}

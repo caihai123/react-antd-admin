@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Breadcrumb } from "antd";
-import { treeFilter } from "../utils/index";
+import { treeFilter } from "./utils.js";
 
 // 将一条枝干的树转成一维数组
 function treeTOList(treeList) {

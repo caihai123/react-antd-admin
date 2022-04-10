@@ -12,6 +12,7 @@ import Error404 from "../pages/404.js";
 import Error401 from "../pages/401.js";
 import { flattenDeep } from "../utils/index.js";
 import Logo from "../assets/logo.svg";
+import { Scrollbars } from "react-custom-scrollbars";
 
 const { Header, Sider, Content } = Layout;
 
@@ -75,9 +76,11 @@ export default function LayoutViwe() {
           )}
           className={style.sider}
         >
-          <Menu mode="inline" selectedKeys={[activePathname]} className={style['menu-children']}>
-            {initialMenuList.map((item) => MenuItem(item))}
-          </Menu>
+          <Scrollbars style={{ height: "100%" }} autoHide>
+            <Menu mode="inline" selectedKeys={[activePathname]}>
+              {initialMenuList.map((item) => MenuItem(item))}
+            </Menu>
+          </Scrollbars>
         </Sider>
 
         <Content className={style.content}>
@@ -85,7 +88,6 @@ export default function LayoutViwe() {
             <Breadcrumb menuList={initialMenuList} />
           </div>
 
-          
           <div className={style.main}>
             <Suspense>
               <Routes>

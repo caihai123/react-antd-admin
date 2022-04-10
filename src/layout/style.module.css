@@ -15,27 +15,6 @@
   padding-top: 48px;
 }
 
-.menu-children {
-  height: 100%;
-  overflow: hidden auto;
-  /* :global {
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: hsla(0, 0%, 100%, 0.15);
-      border-radius: 3px;
-      box-shadow: inset 0 0 5px rgba(37, 37, 37, 0.05);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: hsla(0, 0%, 100%, 0.2);
-      border-radius: 3px;
-      box-shadow: inset 0 0 5px hsla(0, 0%, 100%, 0.05);
-    }
-  } */
-}
-
 .logo {
   position: relative;
   display: flex;

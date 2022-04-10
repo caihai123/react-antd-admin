@@ -1,5 +1,5 @@
 import React, { useState, Suspense, useEffect } from "react";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Skeleton } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { Routes, Route, useLocation, Link } from "react-router-dom";
 import style from "./style.module.css";
@@ -20,13 +20,18 @@ export default function LayoutViwe() {
   const [collapsed, setCollapsed] = useState(false); // 控制侧边栏展开收起
 
   const [initialMenuList, setInitialMenuList] = useState([]); // 后端返回的路由表
+  const [menuLoading, setMenuLoading] = useState(false);
   useEffect(() => {
     // 获取权限路由列表
+    setMenuLoading(true);
     axios
       .get("/mock-api/react-antd-admin/get-menu-list.json")
       .then((response) => {
         const { data } = response.data;
         setInitialMenuList(data || []);
+      })
+      .finally(() => {
+        setMenuLoading(false);
       });
   }, []);
 
@@ -76,11 +81,21 @@ export default function LayoutViwe() {
           )}
           className={style.sider}
         >
-          <Scrollbars style={{ height: "100%" }} autoHide>
-            <Menu mode="inline" selectedKeys={[activePathname]}>
-              {initialMenuList.map((item) => MenuItem(item))}
-            </Menu>
-          </Scrollbars>
+          <Skeleton
+            active
+            loading={menuLoading}
+            paragraph={{
+              rows: 4,
+            }}
+            title={false}
+            style={{ padding:20 }}
+          >
+            <Scrollbars style={{ height: "100%" }} autoHide>
+              <Menu mode="inline" selectedKeys={[activePathname]}>
+                {initialMenuList.map((item) => MenuItem(item))}
+              </Menu>
+            </Scrollbars>
+          </Skeleton>
         </Sider>
 
         <Content className={style.content}>

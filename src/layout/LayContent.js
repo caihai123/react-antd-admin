@@ -27,9 +27,8 @@ export default function LayContent({ initialMenuList, loading }) {
   // 由initialMenuList变化来的一维菜单列表
   const [menuList, setMenuList] = useState([]);
 
-  
   const [pageloading, setPageloading] = useState(false);
-  
+
   // 首次加载时可能会先显示出401页面，所以需要控制让路由延时渲染，留出计算菜单权限的时间
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const delayedLoading = useCallback(

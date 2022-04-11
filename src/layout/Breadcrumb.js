@@ -36,7 +36,7 @@ export default function Component({ menuList }) {
     if (!levelList[0]) {
       levelList = [{ title: "未知路由" }];
     }
-    
+
     const [first] = levelList;
     if (first.path !== "/index") {
       levelList.unshift({ title: "首页", path: "/index" });

@@ -31,7 +31,13 @@ export default function Page() {
         </Button>
       </Space>
 
-      <Table dataSource={tableData} rowKey="id" bordered pagination={false} size="middle">
+      <Table
+        dataSource={tableData}
+        rowKey="id"
+        bordered
+        pagination={false}
+        size="middle"
+      >
         <Column title="标题" dataIndex="title" />
         <Column title="路径" dataIndex="path" />
         <Column title="图标" dataIndex="icon" />

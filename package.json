@@ -27,11 +27,11 @@
     ],
     "extends": [
       "react-app",
-      "react-app/jest",
-      "eslint:recommended"
+      "react-app/jest"
     ],
     "rules": {
       "prettier/prettier": "warn",
+      "eqeqeq":"error",
       "no-console": "warn",
       "no-debugger": "warn"
     }

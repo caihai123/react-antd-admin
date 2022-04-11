@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ConfigProvider } from "antd";
 import classNames from "classnames";
-import PropsType from "props-type";
+import PropTypes from "prop-types";
 /**
  * 返回当前显示设备的物理像素分辨率与CSS像素分辨率之比
  *
@@ -141,27 +141,27 @@ const WaterMark = (props) => {
   );
 };
 
-WaterMark.prototype = {
-  className: PropsType.string,
-  style: PropsType.object,
-  markStyle: PropsType.object,
-  markClassName: PropsType.string,
-  gapX: PropsType.number,
-  gapY: PropsType.number,
-  width: PropsType.number,
-  height: PropsType.number,
-  rotate: PropsType.number,
-  image: PropsType.string,
-  content: PropsType.string,
-  offsetLeft: PropsType.number,
-  offsetTop: PropsType.number,
-  fontStyle: PropsType.string,
-  fontWeight: PropsType.string,
-  fontColor: PropsType.string,
-  fontSize: PropsType.number,
-  fontFamily: PropsType.string,
-  prefixCls: PropsType.string,
-  zIndex: PropsType.number,
+WaterMark.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object,
+  markStyle: PropTypes.object,
+  markClassName: PropTypes.string,
+  gapX: PropTypes.number,
+  gapY: PropTypes.number,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  rotate: PropTypes.number,
+  image: PropTypes.string,
+  content: PropTypes.string,
+  offsetLeft: PropTypes.number,
+  offsetTop: PropTypes.number,
+  fontStyle: PropTypes.string,
+  fontWeight: PropTypes.string,
+  fontColor: PropTypes.string,
+  fontSize: PropTypes.number,
+  fontFamily: PropTypes.string,
+  prefixCls: PropTypes.string,
+  zIndex: PropTypes.number,
 };
 
 WaterMark.defaultProps = {

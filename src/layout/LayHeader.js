@@ -1,7 +1,7 @@
 import { Layout } from "antd";
 import { Link } from "react-router-dom";
 import style from "./style.module.css";
-import Logo from "../assets/logo.svg";
+import Logo from "@/assets/logo.svg";
 
 const { Header } = Layout;
 

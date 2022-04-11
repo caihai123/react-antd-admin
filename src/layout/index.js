@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "../utils/axios";
+import axios from "@/utils/axios";
 import { Layout } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import style from "./style.module.css";

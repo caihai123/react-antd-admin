@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "../../../utils/axios";
+import axios from "@/utils/axios";
 import { Table, Space, Input, Button } from "antd";
 import { SearchOutlined, FileAddOutlined } from "@ant-design/icons";
 

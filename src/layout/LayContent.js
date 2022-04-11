@@ -1,6 +1,7 @@
-import { useState, Suspense, useEffect } from "react";
+import { useState, Suspense, useEffect, useCallback } from "react";
 import { Layout, Skeleton } from "antd";
 import { Routes, Route } from "react-router-dom";
+import { debounce } from "throttle-debounce";
 import style from "./style.module.css";
 import Breadcrumb from "./Breadcrumb";
 import Redirect from "./redirect";
@@ -26,20 +27,20 @@ export default function LayContent({ initialMenuList, loading }) {
   // 由initialMenuList变化来的一维菜单列表
   const [menuList, setMenuList] = useState([]);
 
+  
+  const [pageloading, setPageloading] = useState(false);
+  
   // 首次加载时可能会先显示出401页面，所以需要控制让路由延时渲染，留出计算菜单权限的时间
-  const [delayloading, setDelayloading] = useState(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const delayedLoading = useCallback(
+    debounce(500, (loading) => setPageloading(loading)),
+    []
+  );
 
   useEffect(() => {
-    setDelayloading(false);
     setMenuList(flattenDeep(initialMenuList));
-    
-    // 只有菜单列表正确的返回时才渲染路由
-    if (initialMenuList.length) {
-      setTimeout(() => {
-        setDelayloading(true);
-      }, 500);
-    }
-  }, [initialMenuList]);
+    delayedLoading(!loading);
+  }, [delayedLoading, initialMenuList, loading]);
 
   // 判断当前路由是否在菜单列表中 如果在返回true 否则返回false
   const isInMenuList = (pathname) => {
@@ -53,7 +54,7 @@ export default function LayContent({ initialMenuList, loading }) {
       </div>
 
       <div className={style.main}>
-        {delayloading ? (
+        {pageloading ? (
           <Suspense fallback={<PageLoading />}>
             <Routes>
               {routes.map((item) => (

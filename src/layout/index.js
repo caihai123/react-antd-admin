@@ -53,7 +53,7 @@ export default function LayoutViwe() {
           <LayMenu initialMenuList={initialMenuList} loading={menuLoading} />
         </Sider>
 
-        <LayContent initialMenuList={initialMenuList} loading={menuLoading}/>
+        <LayContent initialMenuList={initialMenuList} loading={menuLoading} />
       </Layout>
     </Layout>
   );

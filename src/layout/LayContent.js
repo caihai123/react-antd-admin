@@ -5,9 +5,9 @@ import { debounce } from "throttle-debounce";
 import style from "./style.module.css";
 import Breadcrumb from "./Breadcrumb";
 import Redirect from "./redirect";
-import Error404 from "../pages/404.js";
-import Error401 from "../pages/401.js";
-import routes from "../router/index"; // 前端路由表
+import Error404 from "@/pages/404.js";
+import Error401 from "@/pages/401.js";
+import routes from "@/router/index"; // 前端路由表
 import { flattenDeep } from "./utils.js";
 
 const { Content } = Layout;

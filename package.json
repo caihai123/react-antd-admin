@@ -2,6 +2,7 @@
   "name": "react-antd-admin",
   "version": "0.1.0",
   "private": true,
+  "description": "这是一个'vue-clean-admin'的简单'react'版本，目前只做了基本的'layout'和动态路由，后期会逐渐添加或完善一些小功能和演示页面，但不会做 tabs 和路由缓存。",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
@@ -31,7 +32,7 @@
     ],
     "rules": {
       "prettier/prettier": "warn",
-      "eqeqeq":"error",
+      "eqeqeq": "error",
       "no-console": "warn",
       "no-debugger": "warn"
     }

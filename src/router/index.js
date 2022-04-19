@@ -17,6 +17,10 @@ const routes = [
     path: "/permis/user",
     component: lazy(() => import("@/pages/permis/user")),
   },
+  {
+    path: "/table",
+    component: lazy(() => import("@/pages/table")),
+  },
 ];
 
 export default routes;

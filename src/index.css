@@ -8,6 +8,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 #root {
   height: 100%;
+}
+
+/* antd行内表单默认样式 */
+.ant-form-inline .ant-form-item {
+  min-width: 183px;
+  margin-bottom: 24px;
 }

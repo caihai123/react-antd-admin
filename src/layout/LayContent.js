@@ -43,7 +43,7 @@ export default function LayContent({ initialMenuList, loading }) {
 
   // 判断当前路由是否在菜单列表中 如果在返回true 否则返回false
   const isInMenuList = (pathname) => {
-    return menuList.find((item) => item.path === pathname);
+    return menuList.some((item) => item.path === pathname);
   };
 
   return (
